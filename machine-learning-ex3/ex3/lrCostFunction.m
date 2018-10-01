@@ -37,7 +37,11 @@ grad = zeros(size(theta));
 %
 
 
-
+h = 1./(1 + e.^-(X*theta));
+J = (-1/m)*sum(y'*log(h) + (1-y')*log(1-h)) + (lambda/(2*m))*sum(theta(2:end).^2);
+mask = ones(size(theta));
+mask(1) = 0;
+grad = (1/m)*(X'*(h - y)) + (lambda/m)*(theta.*mask);
 
 
 
